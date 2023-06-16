@@ -1,8 +1,0 @@
-{
-    "workbench.tree.expandMode": "singleClick",
-
-    "[lua]": {
-        "editor.defaultFormatter": "JohnnyMorganz.stylua",
-        "editor.formatOnSave": true 
-    }
-}
