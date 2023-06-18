@@ -251,7 +251,7 @@ queue.currentFunction - the current function that the queue is playing, if none 
 
 ]]
 
-local Debug = false -- Enable this to recieve additional information whenever using a function. (Very few actually use this.)
+local DebugMessages = false -- Enable this to recieve additional information whenever using a function. (Very few actually use this.)
 local DisableWarns = false -- Disable this if you don't want a warning poppin up whenever using a deprecated feature
 
 local Countdown = require(script.Countdown)
@@ -266,7 +266,7 @@ local function Warn(Message)
 end
 
 local function Debug(Message)
-	if Debug then
+	if DebugMessages then
 		print(Message)
 	end
 end
@@ -457,17 +457,21 @@ end
 
 -------- TABLE FUNCTIONS --------
 
-function utility:DeepClearTable(SentTable: table)
+function utility:DeepClearTable(SentTable: {any})
 	assert(SentTable, "Please provide a table.")
 
-	for k, v in pairs(SentTable) do
-		if typeof(v) == Instance then
+	for _, v in pairs(SentTable) do
+		local Vtype = typeof(v)
+
+		if Vtype == Instance then
 			v:Destroy()
-		elseif typeof(v) == "RBXScriptSignal" then
+		elseif Vtype == "RBXScriptSignal" then
 			v:Disconnect()
-		elseif typeof(v) == table then
+		elseif Vtype == table then
 			utility:DeepClearTable(v)
 			v = nil
+		elseif Vtype == "thread" then
+			task.cancel(v)
 		else
 			v = nil
 		end
