@@ -741,7 +741,7 @@ function utility:ConnectLimited(Limit: number, Event: RBXScriptSignal, Function:
 	assert(typeof(Event) == "RBXScriptSignal", "Event has to be an event.")
 	assert(typeof(Function) == "function", "Please provide a function.")
 	assert(type(Limit) ~= "number", "A limit is required.")
-	
+
 	local UsesLeft = Limit
 	local Connection
 

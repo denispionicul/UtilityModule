@@ -9,31 +9,35 @@ Countdown.__index = Countdown
 Countdown.ClassName = "Countdown"
 
 type self = {
-    MaxCount : number,
-    Timer : number,
-    TimeToDrain : number,
-    TimerConsumption : number,
-    UpdateEvent : RBXScriptSignal,
+	MaxCount: number,
+	Timer: number,
+	TimeToDrain: number,
+	TimerConsumption: number,
+	UpdateEvent: RBXScriptSignal,
 
-    OnCount : RBXScriptSignal,
-    OnFinished : RBXScriptSignal
+	OnCount: RBXScriptSignal,
+	OnFinished: RBXScriptSignal,
 }
 
 export type Countdown = typeof(setmetatable({} :: self, Countdown))
 
-function Countdown.Start(self : Countdown, Count : number)
+function Countdown.Start(self: Countdown, Count: number)
 	assert(self._Connections.Main == nil, "You cannot run the same Countdown twice.")
 
 	self._Tick = os.clock()
-	if Count then self.Timer = Count end
+	if Count then
+		self.Timer = Count
+	end
 
-    self._Connections.Main = self.UpdateEvent:Connect(function()
-        local diff = os.clock() - self._Tick
+	self._Connections.Main = self.UpdateEvent:Connect(function()
+		local diff = os.clock() - self._Tick
 
 		if diff >= self.TimeToDrain and self.Timer > 0 then
-            local ConsumeAmount = self.TimerConsumption * math.floor(diff / self.TimerConsumption)
+			local ConsumeAmount = self.TimerConsumption * math.floor(diff / self.TimerConsumption)
 
-			if self.Timer > self.MaxCount then self.Timer = self.MaxCount end
+			if self.Timer > self.MaxCount then
+				self.Timer = self.MaxCount
+			end
 			self._Tick = os.clock()
 			self.Timer -= ConsumeAmount
 			self._OnCount:Fire(self.Timer)
@@ -44,17 +48,17 @@ function Countdown.Start(self : Countdown, Count : number)
 	end)
 end
 
-function Countdown.SetTimer(self : Countdown, timer : number)
+function Countdown.SetTimer(self: Countdown, timer: number)
 	assert(type(timer) == "number", "Please provide a number")
-	
+
 	self._Tick = os.clock()
-	self.Timer =  timer
+	self.Timer = timer
 end
 
-function Countdown.Pause(self : Countdown, pauseTime : number)
-    assert(self._Connections.Main ~= nil, "You cannot pause while not running.")
+function Countdown.Pause(self: Countdown, pauseTime: number)
+	assert(self._Connections.Main ~= nil, "You cannot pause while not running.")
 
-    self._Connections.Main:Disconnect()
+	self._Connections.Main:Disconnect()
 
 	if pauseTime and type(pauseTime) == "number" then
 		task.wait(pauseTime)
@@ -62,38 +66,38 @@ function Countdown.Pause(self : Countdown, pauseTime : number)
 	end
 end
 
-function Countdown.Stop(self : Countdown)
-    assert(self.MaxCount < 100000, "Cannot stop timer if the MaxCount is inf")
+function Countdown.Stop(self: Countdown)
+	assert(self.MaxCount < 100000, "Cannot stop timer if the MaxCount is inf")
 
-    self:Pause()
-    self.Timer = self.MaxCount
+	self:Pause()
+	self.Timer = self.MaxCount
 end
 
-function Countdown.Destroy(self : Countdown)
+function Countdown.Destroy(self: Countdown)
 	require(script.Parent).DeepClearTable(self)
 end
 
-function Countdown._Init(self : Countdown)
-    -- print("Starting...")
+function Countdown._Init(self: Countdown)
+	-- print("Starting...")
 end
 
-function Countdown.new(MaxCount : number) : Countdown
+function Countdown.new(MaxCount: number): Countdown
 	local self = setmetatable({}, Countdown)
 
 	self._OnCount, self._OnFinished = Instance.new("BindableEvent"), Instance.new("BindableEvent")
-    self._Tick = os.clock()
-    self._Connections = {}
+	self._Tick = os.clock()
+	self._Connections = {}
 
-	self.MaxCount = MaxCount or math.huge 
+	self.MaxCount = MaxCount or math.huge
 	self.Timer = 0
 	self.TimeToDrain = 1
 	self.TimerConsumption = 1
-    self.UpdateEvent = RunService.Stepped
-	
+	self.UpdateEvent = RunService.Stepped
+
 	self.OnCount = self._OnCount.Event
 	self.OnFinished = self._OnFinished.Event
-	
-    self:_Init()
+
+	self:_Init()
 
 	return self
 end
