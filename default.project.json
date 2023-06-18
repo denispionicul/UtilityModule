@@ -6,7 +6,7 @@
       "ReplicatedStorage": {
            "$className": "ReplicatedStorage",
            "Source": {
-                "$path": "src/ReplicatedStorage"
+                "$path": "src"
            }
       }
   }

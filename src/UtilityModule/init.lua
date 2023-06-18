@@ -259,13 +259,13 @@ local Queue = require(script.Queue)
 local Meter = require(script.Meter)
 local Tracker = require(script.Tracker)
 
-function Warn(Message)
+local function Warn(Message)
 	if not DisableWarns then
 		warn(Message)
 	end
 end
 
-function Debug(Message)
+local function Debug(Message)
 	if Debug then
 		print(Message)
 	end

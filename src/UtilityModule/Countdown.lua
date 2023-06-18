@@ -22,7 +22,7 @@ type self = {
 export type Countdown = typeof(setmetatable({} :: self, Countdown))
 
 function Countdown.Start(self : Countdown, Count : number)
-	assert(self._Connections.Main ~= nil, "You cannot run the same Countdown twice.")
+	assert(self._Connections.Main == nil, "You cannot run the same Countdown twice.")
 
 	self._Tick = os.clock()
 	if Count then self.Timer = Count end
@@ -52,7 +52,7 @@ function Countdown.SetTimer(self : Countdown, timer : number)
 end
 
 function Countdown.Pause(self : Countdown, pauseTime : number)
-    assert(self._Connections.Main == nil, "You cannot pause while not running.")
+    assert(self._Connections.Main ~= nil, "You cannot pause while not running.")
 
     self._Connections.Main:Disconnect()
 
@@ -81,7 +81,6 @@ function Countdown.new(MaxCount : number) : Countdown
 	local self = setmetatable({}, Countdown)
 
 	self._OnCount, self._OnFinished = Instance.new("BindableEvent"), Instance.new("BindableEvent")
-	self._Drain = nil
     self._Tick = os.clock()
     self._Connections = {}
 
