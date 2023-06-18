@@ -691,9 +691,10 @@ end
 
 function utility.CanSeeTarget(
 	Position: Vector3 | CFrame,
-	Target: BasePart,
+	Target: BasePart | Model,
 	RayCastParams: RaycastParams?,
-	DotProduct: number
+	DotProduct: number?,
+	Distance : number?
 ): boolean
 	assert(Position, "Please provide a CFrame or Vector3")
 	assert(Target, "Please provide a model or part to the target.")
@@ -710,6 +711,12 @@ function utility.CanSeeTarget(
 			if DotProduct and typeof(Position) == "CFrame" then
 				if Position.LookVector:Dot((TargetPart.Position - Origin).Unit) < DotProduct then
 					Debug("Cannot see target due to facing.")
+					return false
+				end
+			end
+			if Distance then
+				if (Origin - TargetPart.Position).Magnitude > Distance then
+					Debug("Cannot see target due to distance.")
 					return false
 				end
 			end

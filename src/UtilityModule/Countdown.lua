@@ -77,9 +77,9 @@ function Countdown.Destroy(self: Countdown)
 	require(script.Parent).DeepClearTable(self)
 end
 
-function Countdown._Init(self: Countdown)
+--[[function Countdown._Init(self: Countdown)
 	-- print("Starting...")
-end
+end]]
 
 function Countdown.new(MaxCount: number): Countdown
 	local self = setmetatable({}, Countdown)
@@ -97,7 +97,7 @@ function Countdown.new(MaxCount: number): Countdown
 	self.OnCount = self._OnCount.Event
 	self.OnFinished = self._OnFinished.Event
 
-	self:_Init()
+--	self:_Init()
 
 	return self
 end
