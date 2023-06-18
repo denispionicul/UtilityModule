@@ -1,67 +1,101 @@
+--!nocheck
+-- DO NOT change the line above.
+
 local RunService = game:GetService("RunService")
 
-local queue = {}
-queue.__index = queue
+local Queue = {}
+Queue.__index = Queue
 
-function queue:Start()
-	assert(self._State ~= "Running", "Do not start a queue twice.")
+Queue.ClassName = "Queue"
+
+type self = {
+	CurrentFunction : () -> () | nil,
+
+	OnEmpty : RBXScriptSignal,
+	OnSwitch : RBXScriptSignal
+}
+
+export type Queue = typeof(setmetatable({} :: self, Queue))
+
+function Queue.Start(self : Queue)
+	assert(self._Connections.Main == nil, "Do not start a Queue twice.")
 	
-	self._State = "Running"
+	self._Connections.Main = function()
+		print("ok")
+			if self.CurrentFunction == nil and #self._Queue > 0 then
+				self.CurrentFunction = self._Queue[1]
+				self._OnSwitch:Fire(self._Queue[1])
+				self.CurrentFunction()
+				table.remove(self._Queue, 1)
+				self.CurrentFunction = nil
+				if #self._Queue <= 0 then self._OnEmpty:Fire() else self._Connections.Main() end
+			end
+	end
+   
+	self._Connections.Main()
+
 end
 
-function queue:Stop()
-	self._State = "Stopped"
+function Queue.Clear(self : Queue)
+	table.clear(self._Queue)
 end
 
-function queue:Add(func : FunctionalTest)
+function Queue.Pause(self : Queue)
+	assert(self._Connections.Main ~= nil, "You cannot stop an already stopped Queue")
+
+	task.cancel(self._Connections.Main)
+end
+
+function Queue.Stop(self : Queue)
+	self:Pause()
+
+	table.clear(self._Queue)
+end
+
+function Queue.Add(self : Queue, func : () -> ())
 	assert(func, "Provide a function")
 	
 	table.insert(self._Queue, func)
+	
+	if #self._Queue == 1 and self._Connections.Main ~= nil then
+		self._Connections.Main()
+	end
 end
 
-function queue:Remove(num : number)
+function Queue.Remove(self : Queue, num : number)
 	assert(num, "Provide a number")
 	
 	table.remove(self._Queue, num)
 end
 
-function queue:GetQueues()
+function Queue.GetQueues(self : Queue)
 	return self._Queue
 end
 
-function queue:Destroy()
-	self = nil
+function Queue.Destroy(self : Queue)
+	require(script.Parent).DeepClearTable(self)
 end
 
-function queue:Init()
-	RunService.Heartbeat:Connect(function()
-		if self.currentFunction == nil and #self._Queue > 0 and self._State == "Running" then
-			self.currentFunction = self._Queue[1]
-			self._OnSwitch:Fire(self._Queue[1])
-			self.currentFunction()
-			table.remove(self._Queue, 1)
-			self.currentFunction = nil
-			if #self._Queue <= 0 then self._OnEmpty:Fire() end
-		end
-	end)
+function Queue._Init(self : Queue)
+	-- print("Starting...")
 end
 
-function queue.new()
-	local self = setmetatable({}, queue)
+function Queue.new() : Queue
+	local self = setmetatable({}, Queue)
 	local OnSwitch, OnEmpty = Instance.new("BindableEvent"), Instance.new("BindableEvent")
-	
-	self._Queue = {}
-	self._State = "Stopped"
+
+	self._Queue = {} :: () -> ()
 	self._OnSwitch = OnSwitch
 	self._OnEmpty = OnEmpty
+	self._Connections = {}
 	
 	self.OnEmpty = OnEmpty.Event
 	self.OnSwitch = OnSwitch.Event
-    self.currentFunction = nil
+    self.CurrentFunction = nil
 	
-	self:Init()
+	self:_Init()
 	
 	return self
 end
 
-return queue
+return Queue

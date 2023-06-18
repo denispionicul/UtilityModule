@@ -773,8 +773,13 @@ end
 
 -------- QUEUE --------
 
-function utility.newQueue()
-	Warn("This Feature is Deprecated: Queue")
+function utility:IsAQueue(t: table): boolean
+	assert(typeof(t) == table, "Please provide a table.")
+
+	return getmetatable(t) == Queue and t.ClassName == "Queue"
+end
+
+function utility.newQueue() : Queue
 	return Queue.new()
 end
 
