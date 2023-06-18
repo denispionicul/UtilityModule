@@ -275,7 +275,7 @@ local utility = {}
 
 -------- INSTANCE FUNCTIONS --------
 
-function utility:ClearAllChildrenWithName(instance : Instance, Name : string)
+function utility:ClearAllChildrenWithName(instance: Instance, Name: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(Name) ~= string, "The name must be a string.")
 
@@ -286,7 +286,7 @@ function utility:ClearAllChildrenWithName(instance : Instance, Name : string)
 	end
 end
 
-function utility:ClearAllChildrenWithClass(instance : Instance, ClassName : string)
+function utility:ClearAllChildrenWithClass(instance: Instance, ClassName: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(ClassName) ~= string, "The name must be a string.")
 
@@ -297,7 +297,7 @@ function utility:ClearAllChildrenWithClass(instance : Instance, ClassName : stri
 	end
 end
 
-function utility:ClearAllDescendantsWithName(instance : Instance, Name : string)
+function utility:ClearAllDescendantsWithName(instance: Instance, Name: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(Name) ~= string, "The name must be a string.")
 
@@ -308,7 +308,7 @@ function utility:ClearAllDescendantsWithName(instance : Instance, Name : string)
 	end
 end
 
-function utility:ClearAllDescendantsWithClass(instance : Instance, Class : string)
+function utility:ClearAllDescendantsWithClass(instance: Instance, Class: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(Class) ~= string, "The name must be a string.")
 
@@ -319,7 +319,7 @@ function utility:ClearAllDescendantsWithClass(instance : Instance, Class : strin
 	end
 end
 
-function utility:GetChildrenWithName(instance : Instance, Name : string)
+function utility:GetChildrenWithName(instance: Instance, Name: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(Name) ~= string, "The name must be a string.")
 	local returningTable = {}
@@ -333,7 +333,7 @@ function utility:GetChildrenWithName(instance : Instance, Name : string)
 	return returningTable
 end
 
-function utility:GetChildrenWithClass(instance : Instance, ClassName : string)
+function utility:GetChildrenWithClass(instance: Instance, ClassName: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(ClassName) ~= string, "The name must be a string.")
 	local returningTable = {}
@@ -347,7 +347,7 @@ function utility:GetChildrenWithClass(instance : Instance, ClassName : string)
 	return returningTable
 end
 
-function utility:GetDescendantsWithName(instance : Instance, Name : string)
+function utility:GetDescendantsWithName(instance: Instance, Name: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(Name) ~= string, "The name must be a string.")
 	local returningTable = {}
@@ -361,7 +361,7 @@ function utility:GetDescendantsWithName(instance : Instance, Name : string)
 	return returningTable
 end
 
-function utility:GetDescendantsWithClass(instance : Instance, ClassName : string)
+function utility:GetDescendantsWithClass(instance: Instance, ClassName: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(ClassName) ~= string, "The name must be a string.")
 	local returningTable = {}
@@ -375,7 +375,7 @@ function utility:GetDescendantsWithClass(instance : Instance, ClassName : string
 	return returningTable
 end
 
-function utility:HasChildWithName(instance : Instance, Name : string)
+function utility:HasChildWithName(instance: Instance, Name: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(Name) ~= string, "The name must be a string.")
 	Warn("This Feature is Deprecated: HasChildWithName")
@@ -391,7 +391,7 @@ function utility:HasChildWithName(instance : Instance, Name : string)
 	return returningBool
 end
 
-function utility:HasChildWithClass(instance : Instance, ClassName : string)
+function utility:HasChildWithClass(instance: Instance, ClassName: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(ClassName) ~= string, "The name must be a string.")
 	Warn("This Feature is Deprecated: HasChildWithClass")
@@ -407,7 +407,7 @@ function utility:HasChildWithClass(instance : Instance, ClassName : string)
 	return returningBool
 end
 
-function utility:HasDescendantWithName(instance : Instance, Name : string)
+function utility:HasDescendantWithName(instance: Instance, Name: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(Name) ~= string, "The name must be a string.")
 	Warn("This Feature is Deprecated: HasDescendantWithName")
@@ -423,7 +423,7 @@ function utility:HasDescendantWithName(instance : Instance, Name : string)
 	return returningBool
 end
 
-function utility:HasDescendantWithClass(instance : Instance, ClassName : string)
+function utility:HasDescendantWithClass(instance: Instance, ClassName: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(ClassName) ~= string, "The name must be a string.")
 	warn("This Feature is Deprecated: HasDescendantWithClass")
@@ -439,7 +439,7 @@ function utility:HasDescendantWithClass(instance : Instance, ClassName : string)
 	return returningBool
 end
 
-function utility:UngroupModel(Model : Model, Parent)
+function utility:UngroupModel(Model: Model, Parent)
 	assert(Model, "Please provide a model.")
 
 	local Instances = Model:GetChildren()
@@ -457,7 +457,7 @@ end
 
 -------- TABLE FUNCTIONS --------
 
-function utility:DeepClearTable(SentTable : table)
+function utility:DeepClearTable(SentTable: table)
 	assert(SentTable, "Please provide a table.")
 
 	for k, v in pairs(SentTable) do
@@ -474,7 +474,7 @@ function utility:DeepClearTable(SentTable : table)
 	end
 end
 
-function utility:GetWeightOfTable(SentTable : table)
+function utility:GetWeightOfTable(SentTable: table)
 	assert(SentTable, "Please provide a table.")
 	local returningNumber = 0
 
@@ -487,7 +487,7 @@ function utility:GetWeightOfTable(SentTable : table)
 	return returningNumber
 end
 
-function utility:GetValuesWithName(SentTable : table, Name : string)
+function utility:GetValuesWithName(SentTable: table, Name: string)
 	assert(SentTable, "Please provide a table.")
 	assert(type(Name) ~= string, "Please provide a valid name.")
 	local returningTable = {}
@@ -505,7 +505,7 @@ function utility:GetValuesWithName(SentTable : table, Name : string)
 	return returningTable
 end
 
-function utility:GetAllKeysWithName(SentTable : table, Name : string)
+function utility:GetAllKeysWithName(SentTable: table, Name: string)
 	assert(SentTable, "Please provide a table.")
 	assert(typeof(Name) ~= string, "Please provide a valid name.")
 	Warn("This feature is deprecated: GetAllKeysWithName (I genuinely don't know why this function exists)")
@@ -522,7 +522,7 @@ function utility:GetAllKeysWithName(SentTable : table, Name : string)
 	return returningTable
 end
 
-function utility:ClearAllValuesWithName(SentTable : table, Name : string)
+function utility:ClearAllValuesWithName(SentTable: table, Name: string)
 	assert(SentTable, "Please provide a table.")
 	assert(typeof(Name) ~= string, "Please provide a valid name.")
 
@@ -541,7 +541,7 @@ function utility:ClearAllValuesWithName(SentTable : table, Name : string)
 	return SentTable
 end
 
-function utility:HasValueWithName(SentTable : table, Name : string)
+function utility:HasValueWithName(SentTable: table, Name: string)
 	assert(SentTable, "Please provide a table.")
 	assert(typeof(Name) ~= string, "Please provide a valid name.")
 	local returningBool = false
@@ -563,7 +563,7 @@ function utility:HasValueWithName(SentTable : table, Name : string)
 	return returningBool
 end
 
-function utility:GroupTable(SentTable : table, InstanceParent : Instance)
+function utility:GroupTable(SentTable: table, InstanceParent: Instance)
 	assert(SentTable, "Please provide a table with instances.")
 	assert(InstanceParent, "Please provide a parent for the model")
 
@@ -583,7 +583,12 @@ end
 
 -------- RADIUS --------
 
-function utility:GetHumanoidsInRadius(Position: Vector3, Radius: number, OverlapParam: OverlapParams?, AliveOnly : boolean?)
+function utility:GetHumanoidsInRadius(
+	Position: Vector3,
+	Radius: number,
+	OverlapParam: OverlapParams?,
+	AliveOnly: boolean?
+)
 	assert(typeof(Position) ~= Vector3, "Position must be a Vector3.")
 	assert(typeof(Radius) == "number", "Radius must be a number.")
 
@@ -595,7 +600,9 @@ function utility:GetHumanoidsInRadius(Position: Vector3, Radius: number, Overlap
 			local Humanoid = Part.Parent:FindFirstChild("Humanoid")
 
 			if Humanoid then
-				if AliveOnly and Humanoid.Health <= 0 then continue end
+				if AliveOnly and Humanoid.Health <= 0 then
+					continue
+				end
 				table.insert(Humanoids, Humanoid)
 				Debug("A humanoid has been found")
 			end
@@ -628,7 +635,12 @@ function utility:GetModelsInRadius(Position: Vector3, Radius: number, OverlapPar
 	return Models
 end
 
-function utility:GetPartsWithNameInRadius(Position: Vector3, Radius: number, OverlapParam: OverlapParams?, Name : string): {Instance}
+function utility:GetPartsWithNameInRadius(
+	Position: Vector3,
+	Radius: number,
+	OverlapParam: OverlapParams?,
+	Name: string
+): { Instance }
 	assert(typeof(Position) ~= Vector3, "Position must be a Vector3.")
 	assert(typeof(Radius) == "number", "Radius must be a number.")
 	assert(type(Name) ~= "string", "Please provide a Name.")
@@ -648,7 +660,12 @@ function utility:GetPartsWithNameInRadius(Position: Vector3, Radius: number, Ove
 	return Parts
 end
 
-function utility:GetPartsWithClassInRadius(Position: Vector3, Radius: number, OverlapParam: OverlapParams?, Class : string): {Instance}
+function utility:GetPartsWithClassInRadius(
+	Position: Vector3,
+	Radius: number,
+	OverlapParam: OverlapParams?,
+	Class: string
+): { Instance }
 	assert(typeof(Position) ~= Vector3, "Position must be a Vector3.")
 	assert(typeof(Radius) == "number", "Radius must be a number.")
 	assert(type(Class) ~= "string", "Please provide a Name.")
@@ -668,11 +685,18 @@ function utility:GetPartsWithClassInRadius(Position: Vector3, Radius: number, Ov
 	return Parts
 end
 
-function utility.CanSeeTarget(Position: Vector3 | CFrame, Target: BasePart, RayCastParams: RaycastParams?, DotProduct : number): boolean
+function utility.CanSeeTarget(
+	Position: Vector3 | CFrame,
+	Target: BasePart,
+	RayCastParams: RaycastParams?,
+	DotProduct: number
+): boolean
 	assert(Position, "Please provide a CFrame or Vector3")
 	assert(Target, "Please provide a model or part to the target.")
 
-	local TargetPart = if Target:IsA("Model") then Target.PrimaryPart or Target:FindFirstChildOfClass("BasePart") else Target
+	local TargetPart = if Target:IsA("Model")
+		then Target.PrimaryPart or Target:FindFirstChildOfClass("BasePart")
+		else Target
 	local Origin = if typeof(Position) == "CFrame" then Position.Position else Position
 
 	local RayCast = workspace:Raycast(Origin, TargetPart.Position - Origin, RayCastParams)
@@ -697,7 +721,7 @@ end
 
 -------- EVENTS --------
 
-function utility:ConnectOnce(Event : RBXScriptSignal, Function : "function")
+function utility:ConnectOnce(Event: RBXScriptSignal, Function: "function")
 	assert(typeof(Event) == "RBXScriptSignal", "Event has to be an event.")
 	assert(typeof(Function) == "function", "Please provide a function.")
 
@@ -713,11 +737,11 @@ function utility:ConnectOnce(Event : RBXScriptSignal, Function : "function")
 	Debug("Event Added.")
 end
 
-function utility:ConnectLimited(Limit : number, Event : RBXScriptSignal, Function : "function")
+function utility:ConnectLimited(Limit: number, Event: RBXScriptSignal, Function: "function")
 	assert(typeof(Event) == "RBXScriptSignal", "Event has to be an event.")
 	assert(typeof(Function) == "function", "Please provide a function.")
 	assert(type(Limit) ~= "number", "A limit is required.")
-
+	
 	local UsesLeft = Limit
 	local Connection
 
@@ -733,18 +757,17 @@ function utility:ConnectLimited(Limit : number, Event : RBXScriptSignal, Functio
 	end)
 
 	Debug("Event Added.")
-
 end
 
 -------- COUNTDOWN --------
 
-function utility:IsACountdown(t : table): boolean
-  assert(typeof(t) == table, "Please provide a table.")
+function utility:IsACountdown(t: table): boolean
+	assert(typeof(t) == table, "Please provide a table.")
 
-  return getmetatable(t) == Countdown and t.ClassName == "Countdown"
+	return getmetatable(t) == Countdown and t.ClassName == "Countdown"
 end
 
-function utility.newCountdown(MaxCount : number) : Countdown
+function utility.newCountdown(MaxCount: number): Countdown
 	return Countdown.new(MaxCount)
 end
 
@@ -757,25 +780,25 @@ end
 
 -------- METER --------
 
-function utility:IsAMeter(t : table): boolean
-    assert(typeof(t) == table, "Please provide a table.")
-  
-    return getmetatable(t) == Meter and t.ClassName == "Meter"
+function utility:IsAMeter(t: table): boolean
+	assert(typeof(t) == table, "Please provide a table.")
+
+	return getmetatable(t) == Meter and t.ClassName == "Meter"
 end
 
-function utility.newMeter(Minimum : number?, Maximum : number?): Meter
+function utility.newMeter(Minimum: number?, Maximum: number?): Meter
 	return Meter.new(Minimum, Maximum)
 end
 
 -------- TRACKER --------
 
-function utility:IsATracker(t : table): boolean
-    assert(typeof(t) == table, "Please provide a table.")
-  
-    return getmetatable(t) == Tracker and t.ClassName == "Tracker"
+function utility:IsATracker(t: table): boolean
+	assert(typeof(t) == table, "Please provide a table.")
+
+	return getmetatable(t) == Tracker and t.ClassName == "Tracker"
 end
 
-function utility.newTracker(Origin : BasePart | Vector3, Target : BasePart | Vector3): Tracker
+function utility.newTracker(Origin: BasePart | Vector3, Target: BasePart | Vector3): Tracker
 	return Tracker.new(Origin, Target)
 end
 
