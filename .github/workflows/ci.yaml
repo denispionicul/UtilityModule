@@ -9,22 +9,16 @@ on:
     - main
 
 jobs:
-
   lint:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-    - name: Check Code
+    - name: Checkout code
       uses: actions/checkout@v3
-
-    - uses: LPGhatguy/aftman@0.2.7
-      name: Install Aftman
-      with:
-          version: "1.0.0"
-          token: ${{ SECRETS.GITHUB_TOKEN }}
-
+    - name: Install Aftman
+      uses: ok-nick/setup-aftman@v0
     - name: Lint
-      run: 
+      run: |
         selene ./src
 
   style:
@@ -32,7 +26,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: JohnnyMorganz/stylua-action@1.0.0
+    - uses: JohnnyMorganz/stylua-action@v2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        args: --check .      
+        version: v0.18.0
+        args: --check ./src

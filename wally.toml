@@ -6,5 +6,5 @@ realm = "shared"
 
 [dependencies]
 Signal = "sleitnick/signal@1.5.0"
-Trove = "sleitnick/trove@0.5.0"     
-UtilityModule = "denispionicul/UtilityModule@1.0"
+Trove = "sleitnick/trove@0.5.0"    
+ClientCast = "PysephWasntAvailable/ClientCast@1.14.0" 
