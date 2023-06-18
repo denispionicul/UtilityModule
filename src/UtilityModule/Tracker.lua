@@ -59,7 +59,7 @@ function Tracker.Stop(self: Tracker)
 	self._Connections.Main:Disconnect()
 end
 
-function Tracker._Init(self: Tracker): () end
+--function Tracker._Init(self: Tracker): () end
 
 function Tracker.new(Origin: BasePart | Vector3, Target: BasePart | Vector3): Tracker
 	assert(Origin, "Please provide an origin.")
@@ -80,7 +80,7 @@ function Tracker.new(Origin: BasePart | Vector3, Target: BasePart | Vector3): Tr
 	self.OnEnter = self._OnEnter.Event
 	self.OnLeave = self._OnLeave.Event
 
-	self:_Init()
+--	self:_Init()
 
 	return self
 end

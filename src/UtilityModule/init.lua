@@ -135,7 +135,12 @@ the given one.
 
  countdown.OnFinished() - Fires whenever the count reaches 0 or lower.
 
- -------- (DEPRECATED) QUEUE --------
+ -------- QUEUE --------
+
+	A queue is a collection of functions that run in order. You can add functions and have them queued in a line, awaiting to 
+	be called. A queue can be paused or stopped.
+
+ * utility:IsAQueue(Table : table): Boolean - Returns true if the given Table is a Queue Class
 
  * utility.newQueue() - Returns a queue class, the following commands can be used on it:
 
@@ -143,7 +148,9 @@ the given one.
 
  - queue:Start() - Starts the queue, it will begin going over every queued function.
 
- - queue:Stop() - Stopts the queue from running the next functions
+ - queue:Pause() - Stops the queue from running the next functions
+
+ - queue:Stop() - Stops the queue from running the next functions and clears all the functions in the queue.
 
  - queue:Add(function : function !) - Adds a function to the queue.
 
