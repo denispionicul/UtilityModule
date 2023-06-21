@@ -3,6 +3,12 @@
 
 local RunService = game:GetService("RunService")
 
+--[=[
+    @class Queue
+
+  	A queue is a collection of functions that run in order. You can add functions and have them queued in a line, awaiting to 
+   be called. A queue can be paused or stopped.
+]=]
 local Queue = {}
 Queue.__index = Queue
 

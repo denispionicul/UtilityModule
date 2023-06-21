@@ -7,6 +7,12 @@ local function GetPosition(Property: BasePart | Vector3)
 	return if typeof(Property) == "Instance" then Property.Position else Property
 end
 
+--[=[
+    @class Tracker
+
+  A tracker is a class that always display (or tracks) given parts or vectors. It has a prebuilt magnitude, unit and min-max range.
+Unlike the other classes above, you might want to change some of its properties before starting.
+]=]
 local Tracker = {}
 Tracker.__index = Tracker
 

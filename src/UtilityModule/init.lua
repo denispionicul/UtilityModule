@@ -287,6 +287,11 @@ local function Debug(Message)
 	end
 end
 
+--[=[
+    @class UtilityModule
+
+    Inside the main Module, you'll find the functions:
+]=]
 local utility = {}
 
 -------- INSTANCE FUNCTIONS --------

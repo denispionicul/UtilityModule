@@ -3,6 +3,13 @@
 
 local RunService = game:GetService("RunService")
 
+--[=[
+    @class Countdown
+
+  	A countdown is a ticking value that can be customized and used for timers and other time-related functions. It can be easily
+customized and be used at your will. There are events that fire whenver ticking or reaching 0 which makes it even more 
+useful for timers and such.
+]=]
 local Countdown = {}
 Countdown.__index = Countdown
 

@@ -1,6 +1,13 @@
 --!nocheck
 -- DO NOT change the line above
 
+--[=[
+    @class Meter
+
+  	 A meter is simply a value within a given min or max value, unlike NumberRanges,
+  they have a value. A meter also has events in which are fired whenever it is full, empty or simply changed. A meter can be set to an
+  UI Instance and it will modify whenever the value inside a meter changes.
+]=]
 local Meter = {}
 Meter.__index = Meter
 
