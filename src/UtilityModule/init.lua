@@ -51,6 +51,10 @@ the given one.
 
  - Table Functions:
 
+ * utility:FilterTable(t : table !, callback : function !) - For every value in the table, the callback will fire with the
+	value as the parameter. The callback MUST return a boolean. If the boolean is true on that value then it'll add to the
+	returning table, else ignore.
+
  * utility:DeepClearTable(SentTable : table !) - Clears every instance, connection, key and table in the given table.
 
  * utility:GetWeightOfTable(SentTable : table !) - Returns the total sum of the numbers in the given table
@@ -85,17 +89,21 @@ the given one.
   * utility:GetPartsWithClassInRadius(Position : Vector3 !, Radius : number !, OverlapParam : OverlapParams ?, Class : string !) -
  Returns a table with all the parts within the radius and position given with the same class.
 
- * utility.CanSeeTarget(Position : Vector3 !, Target : BasePart or Model !, RaycastParam : RaycastParams ?, DotProduct : number) - Cast a raycast and
- returns a boolean indicating if the ray hit the basepart or anything inside the model. If a dot product is provided, it will check
- if it's facing the part too, the dot product goes from -1 (looking backwards) till 1 (looking directly at the part).
+ * utility.CanSeeTarget(Position : Vector3 !, Target : BasePart or Model !, RaycastParam : RaycastParams ?, DotProduct : number?, Distance : number?)
+  - Cast a raycast and returns a boolean indicating if the ray hit the basepart or anything inside the model. If a dot product is provided, it will check
+ if it's facing the part too, the dot product goes from -1 (looking backwards) till 1 (looking directly at the part). If distance is provided, then
+it will also check if the distance is at least the number provided.
 
  - Event Functions:
 
- * utility:ConnectOnce(Event : RBXScriptSignal !, Function : function !) - Connect the given event to the given function and after
+ (DEPRECATED, USE RBXScriptSignal:Once() instead) * utility:ConnectOnce(Event : RBXScriptSignal !, Function : function !) - Connect the given event to the given function and after
  fired disconnects it immediately.
 
  * utility:ConnectLimited(Limit : number !, Event : RBXScriptSignal !, Function : function !) - Connect the given event to the given
  function. After fired for Limit amount of times, it will disconnect itself.
+
+ * utility:ConnectBind(Event: RBXScriptSignal !, callback : function !, Bind : RBXScriptConnection) - Whenever the event in the
+	bind is disconnected, the Event given will also disconnect.	
 
 -------- COUNTDOWN --------
 
@@ -257,6 +265,7 @@ queue.currentFunction - the current function that the queue is playing, if none 
   changed.
 
 ]]
+local RunService = game:GetService("RunService")
 
 local DebugMessages = false -- Enable this to recieve additional information whenever using a function. (Very few actually use this.)
 local DisableWarns = false -- Disable this if you don't want a warning poppin up whenever using a deprecated feature
@@ -464,7 +473,21 @@ end
 
 -------- TABLE FUNCTIONS --------
 
-function utility:DeepClearTable(SentTable: {any})
+function utility:FilterTable<T>(t: { T }, callBack: (value: T) -> boolean): { any }
+	assert(type(t) == "table", "Please provide a table.")
+	assert(typeof(callBack) == "function", "Please provid a callback function.")
+	local returningTable = {}
+
+	for _, value in pairs(t) do
+		if callBack(value) then
+			table.insert(returningTable, value)
+		end
+	end
+
+	return returningTable
+end
+
+function utility:DeepClearTable(SentTable: { any })
 	assert(SentTable, "Please provide a table.")
 
 	for _, v in pairs(SentTable) do
@@ -701,7 +724,7 @@ function utility.CanSeeTarget(
 	Target: BasePart | Model,
 	RayCastParams: RaycastParams?,
 	DotProduct: number?,
-	Distance : number?
+	Distance: number?
 ): boolean
 	assert(Position, "Please provide a CFrame or Vector3")
 	assert(Target, "Please provide a model or part to the target.")
@@ -709,13 +732,13 @@ function utility.CanSeeTarget(
 	local TargetPart = if Target:IsA("Model")
 		then Target.PrimaryPart or Target:FindFirstChildOfClass("BasePart")
 		else Target
-	local Origin = if typeof(Position) == "CFrame" then Position.Position else Position
-
+	local PositionType = typeof(Position)
+	local Origin = if PositionType == "CFrame" then Position.Position else Position
 	local RayCast = workspace:Raycast(Origin, TargetPart.Position - Origin, RayCastParams)
 
 	if RayCast and RayCast.Instance then
 		if RayCast.Instance:IsDescendantOf(Target) or RayCast.Instance == TargetPart then
-			if DotProduct and typeof(Position) == "CFrame" then
+			if DotProduct and PositionType == "CFrame" then
 				if Position.LookVector:Dot((TargetPart.Position - Origin).Unit) < DotProduct then
 					Debug("Cannot see target due to facing.")
 					return false
@@ -742,6 +765,7 @@ end
 function utility:ConnectOnce(Event: RBXScriptSignal, Function: "function")
 	assert(typeof(Event) == "RBXScriptSignal", "Event has to be an event.")
 	assert(typeof(Function) == "function", "Please provide a function.")
+	Warn("utility:ConnectOnce() is deprecated. Please use RBXScriptSignal:Once() instead")
 
 	local Connection
 
@@ -753,6 +777,7 @@ function utility:ConnectOnce(Event: RBXScriptSignal, Function: "function")
 	end)
 
 	Debug("Event Added.")
+	return Connection
 end
 
 function utility:ConnectLimited(Limit: number, Event: RBXScriptSignal, Function: "function")
@@ -775,7 +800,31 @@ function utility:ConnectLimited(Limit: number, Event: RBXScriptSignal, Function:
 	end)
 
 	Debug("Event Added.")
+	return Connection
 end
+
+function utility:ConnectBind(Event: RBXScriptSignal, callback: (...any) -> (), Bind: RBXScriptConnection)
+	assert(typeof(Event) == "RBXScriptSignal", "Event has to be an event.")
+	assert(typeof(callback) == "function", "Please provide a function.")
+	assert(typeof(Bind) == "RBXScriptConnection", "Bind has to be a connection.")
+
+	local Connection = Event:Connect(callback)
+	local Check
+
+	Check = RunService.Stepped:Connect(function()
+		if not Bind.Connected then
+			Check:Disconnect()
+			Connection:Disconnect()
+			Debug("Event Disconnected.")
+		end
+	end)
+
+	Debug("Event Added.")
+
+	return Connection
+end
+
+-- stylua: ignore
 
 -------- COUNTDOWN --------
 
@@ -785,6 +834,7 @@ function utility:IsACountdown(t: table): boolean
 	return getmetatable(t) == Countdown and t.ClassName == "Countdown"
 end
 
+---@diagnostic disable-next-line: undefined-type
 function utility.newCountdown(MaxCount: number): Countdown
 	return Countdown.new(MaxCount)
 end
@@ -797,7 +847,8 @@ function utility:IsAQueue(t: table): boolean
 	return getmetatable(t) == Queue and t.ClassName == "Queue"
 end
 
-function utility.newQueue() : Queue
+---@diagnostic disable-next-line: undefined-type
+function utility.newQueue(): Queue
 	return Queue.new()
 end
 
@@ -809,6 +860,7 @@ function utility:IsAMeter(t: table): boolean
 	return getmetatable(t) == Meter and t.ClassName == "Meter"
 end
 
+---@diagnostic disable-next-line: undefined-type
 function utility.newMeter(Minimum: number?, Maximum: number?): Meter
 	return Meter.new(Minimum, Maximum)
 end
@@ -821,6 +873,7 @@ function utility:IsATracker(t: table): boolean
 	return getmetatable(t) == Tracker and t.ClassName == "Tracker"
 end
 
+---@diagnostic disable-next-line: undefined-type
 function utility.newTracker(Origin: BasePart | Vector3, Target: BasePart | Vector3): Tracker
 	return Tracker.new(Origin, Target)
 end

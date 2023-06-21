@@ -59,6 +59,7 @@ function Countdown.Pause(self: Countdown, pauseTime: number)
 	assert(self._Connections.Main ~= nil, "You cannot pause while not running.")
 
 	self._Connections.Main:Disconnect()
+	self._Connections.Main = nil
 
 	if pauseTime and type(pauseTime) == "number" then
 		task.wait(pauseTime)

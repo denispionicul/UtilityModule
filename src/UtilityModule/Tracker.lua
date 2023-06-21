@@ -57,6 +57,7 @@ function Tracker.Stop(self: Tracker)
 	assert(self._Connections.Main ~= nil, "You cannot stop a tracker twice.")
 
 	self._Connections.Main:Disconnect()
+	self._Connections.Main = nil
 end
 
 --function Tracker._Init(self: Tracker): () end

@@ -42,6 +42,7 @@ function Queue.Pause(self: Queue)
 	assert(self._Connections.Main ~= nil, "You cannot stop an already stopped Queue")
 
 	self._Connections.Main:Disconnect()
+	self._Connections.Main = nil
 end
 
 function Queue.Stop(self: Queue)
