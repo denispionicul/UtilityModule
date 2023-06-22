@@ -1,4 +1,4 @@
-﻿UtilityModule
+﻿# UtilityModule
 
-UtilityModule is a collection of functions and classes that specializes in
+UtilityModule is a **collection of functions and classes** that specializes in
 making common functions and events easier to manage and use.
