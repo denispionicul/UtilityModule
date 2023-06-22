@@ -16,5 +16,10 @@ apiCategories = [
 ]
 
 [home]
-enabled = false
-includeReadme = false # Optional
+enabled = true
+includeReadme = true # Optional
+
+[[home.features]]
+title = "API"
+description = "Have a look at UtilityModule's API"
+image = "https://denispionicul.github.io/UtilityModule/api/utility"
