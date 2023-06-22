@@ -16,10 +16,5 @@ apiCategories = [
 ]
 
 [home]
-enabled = true
-includeReadme = true # Optional
-
-[[home.features]]
-title = "The Utility Functions"
-description = "UtilityModule comes with a bunch of function that make certain situations easier!"
-image = ""
+enabled = false
+includeReadme = false # Optional
