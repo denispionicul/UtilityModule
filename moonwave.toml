@@ -16,5 +16,5 @@ apiCategories = [
 ]
 
 [home]
-enabled = true
-includeReadme = true # Optional
+enabled = false
+includeReadme = false # Optional
