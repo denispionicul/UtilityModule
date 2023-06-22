@@ -1,10 +1,5 @@
 gitSourceBranch = "main"
 
-[docusaurus]
-onBrokenLinks = "throw"
-onBrokenMarkdownLinks = "warn"
-favicon = ""
-
 classOrder = [
     "utility",
     "Countdown",
@@ -19,3 +14,12 @@ apiCategories = [
     "Radius Function",
     "Event Function"
 ]
+
+[home]
+enabled = true
+includeReadme = true # Optional
+
+[[home.features]]
+title = "The Utility Functions"
+description = "UtilityModule comes with a bunch of function that make certain situations easier!"
+image = ""
