@@ -7,17 +7,32 @@ local function GetPosition(Property: BasePart | Vector3)
 	return if typeof(Property) == "Instance" then Property.Position else Property
 end
 
---[=[
-    @class Tracker
-
-  A tracker is a class that always display (or tracks) given parts or vectors. It has a prebuilt magnitude, unit and min-max range.
-Unlike the other classes above, you might want to change some of its properties before starting.
+--[=[ 
+	@class Tracker
+	A tracker is a class that always display (or tracks) given parts or vectors. It has a prebuilt magnitude, unit and min-max range.
+	Unlike the other classes above, ***you might*** **want to change some of its properties before starting.**
+	:::note
+	You can do self:Function() even if this document says Tracker.Function(self)!
+	:::
 ]=]
 local Tracker = {}
 Tracker.__index = Tracker
 
 Tracker.ClassName = "Tracker"
 
+--[=[ 
+	@interface Tracker 
+	@within Tracker
+	.Origin BasePart | Vector3
+	.Target BasePart | Vector3
+	.Distance NumberRange
+	.Magnitude number
+	.Unit Vector3
+	.OnEnter RBXScriptSignal
+	.OnLeave RBXScriptSignal
+
+	The Tracker class.
+]=]
 type self = {
 	Origin: BasePart | Vector3,
 	Target: BasePart | Vector3,
@@ -28,12 +43,56 @@ type self = {
 	OnLeave: RBXScriptSignal,
 }
 
+--[=[ 
+	@prop Origin BasePart | Vector3
+	@within Tracker
+	The origin that the tracker will get its position from.
+]=]
+--[=[ 
+	@prop Target BasePart | Vector3
+	@within Tracker
+	The target the origin will track.
+]=]
+--[=[ 
+	@prop Distance NumberRange
+	@within Tracker
+	The min amd max distance the origin can have from the target.
+]=]
+--[=[ 
+	@prop Magnitude number
+	@within Tracker
+	The distance between the origin and the tracker.
+]=]
+--[=[ 
+	@prop Unit Vector3
+	@within Tracker
+	The Unit vector between the origin and the tracker.
+]=]
+--[=[ 
+	@prop OnEnter RBXScriptSignal
+	@within Tracker
+	Fires whenever the tracker enters the distance range.
+	:::caution
+	This will not fire if the distance isn't provided.
+	:::
+]=]
+--[=[ 
+	@prop OnLeave RBXScriptSignal
+	@within Tracker
+	Fires whenever the tracker leaves the distance range.
+	:::caution
+	This will not fire if the distance isn't provided.
+	:::
+]=]
 export type Tracker = typeof(setmetatable({} :: self, Tracker))
 
 function Tracker.Destroy(self: Tracker)
 	require(script.Parent):DeepClearTable(self)
 end
 
+--[=[ 
+	Starts the tracking and begins updating the properties.
+]=]
 function Tracker.Start(self: Tracker)
 	assert(self._Connections.Main == nil, "You cannot start a tracker twice.")
 
@@ -59,6 +118,9 @@ function Tracker.Start(self: Tracker)
 	end)
 end
 
+--[=[ 
+	Stop the tracker from running and updating its properties.
+]=]
 function Tracker.Stop(self: Tracker)
 	assert(self._Connections.Main ~= nil, "You cannot stop a tracker twice.")
 
@@ -87,7 +149,7 @@ function Tracker.new(Origin: BasePart | Vector3, Target: BasePart | Vector3): Tr
 	self.OnEnter = self._OnEnter.Event
 	self.OnLeave = self._OnLeave.Event
 
---	self:_Init()
+	--	self:_Init()
 
 	return self
 end

@@ -1,4 +1,4 @@
-local UtilityModule = require(script.Parent.Parent)
+local UtilityModule = require(script.Parent) -- path to UtilityModule
 local Countdown = UtilityModule.newCountdown(30)
 local RandomEvent = Instance.new("BindableEvent")
 

@@ -1,18 +1,18 @@
-local UtilityModule = require(script.Parent.Parent)
+local UtilityModule = require(script.Parent) -- path to UtilityModule
 local Queue = UtilityModule.newQueue()
 
-function CriForHelp()
-    print("HEEEELP HEELP MEE")
+function AskForHelp()
+    print("Help")
 end
 
-function what()
-    print("r u fr")
+function Confusion()
+    print("Excuse me?")
     task.wait(5)
 end
 
-Queue:Add(what)
-Queue:Add(CriForHelp)
-Queue:Add(what)
-Queue:Add(CriForHelp)
+Queue:Add(AskForHelp)
+Queue:Add(AskForHelp)
+Queue:Add(Confusion)
+Queue:Add(AskForHelp)
 
 Queue:Start()

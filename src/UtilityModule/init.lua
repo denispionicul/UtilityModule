@@ -4,145 +4,6 @@ Before anything, I just want to say that this is pretty new and if any bugs occu
 Thank you for using this.
 You are allowed to make changes.
 
--------- TUTORIAL --------
-
-SIGNS : ! - required, ? - optional, / - not needed at all
-
-- Instance Functions:
-
- * utility:ClearAllChildrenWithName(instance : Instance !, Name : String !) - Clears All Children if the name matches
- up with the Name parameter.
-
- * utility:ClearAllDescendantsWithName(instance : Instance !, Name : String !) - Clears all descendants that have the same name as the
- given one.
-
- * utility:ClearAllDescendantsWithClass(instance : Instance !, Class : String !) - Clears all descendants that have the same class as
- the given one.
-
- * utility:GetChildrenWithName(instance : Instance !, Name : string !) - Returns all children with the same name as
-the given one.
-
- * utility:GetDescendantsWithName(instance : Instance !, Name : string !) - Returns all descendants with the same name
- as the given one.
-
- * (DEPRECATED)  utility:HasChildWithName(instance : Instance !, Name : string !) - Returns a boolean indicating if there is any
- existing child with the given name.
-
- * (DEPRECATED) utility:HasDescendantWithName(instance : Instance !, Name : string !) - Returns a boolean indicating if there is any
- existing descendant with the given name.
-
-  * utility:ClearAllChildrenWithClass(instance : Instance !, ClassName : string !) - Clears All Children if the class matches
- up with the ClassName parameter.
-
- * utility:GetChildrenWithClass(instance : Instance !, ClassName : string !) - Returns all children with the same class as
-the given one.
-
- * utility:GetDescendantsWithClass(instance : Instance !, ClassName : string !) - Returns all descendants with the same class
- as the given one.
-
- *  (DEPRECATED) utility:HasChildWithClass(instance : Instance !, ClassName : string !) - Returns a boolean indicating if there is any
- existing child with the given class.
-
- *  (DEPRECATED) utility:HasDescendantWithClass(instance : Instance !, ClassName : string !) - Returns a boolean indicating if there is any
- existing descendant with the given class.
-
- * utility:UngroupModel(Model : Model !, Parent : Instance ?) - Ungroups the model and if provided with a parent,
- all children of the model will go there, else the parent of the model
-
- - Table Functions:
-
- * utility:FilterTable(t : table !, callback : function !) - For every value in the table, the callback will fire with the
-	value as the parameter. The callback MUST return a boolean. If the boolean is true on that value then it'll add to the
-	returning table, else ignore.
-
- * utility:DeepClearTable(SentTable : table !) - Clears every instance, connection, key and table in the given table.
-
- * utility:GetWeightOfTable(SentTable : table !) - Returns the total sum of the numbers in the given table
- (if there aren't any numbers, it'll return 0).
-
- * utility:GetValuesWithName(SentTable : table !, Name : string !) - Returns a table (keys included) with only the
- values that match the Name inside the sent table.
-
- * utility:GetAllKeysWithName(SentTable : table !, Name : string !) - Returns a table with only the the keys that match
- the name (values will not be checked) inside the sent table.
-
- * utility:ClearAllValuesWithName(SentTable : table !, Name : string !) - Clears all values inside the sent table that
- match the given Name. Keys will not be deleted.
-
- * utility:HasValueWithName(SentTable : table !, Name : string !) - Returns a boolean indicating if there is any value
- with the given name, keys are not included.
-
- * utility:GroupTable(SentTable : table !, instanceParent : instance !) - Creates a model with and parents all the
- instances in the table to it, the model will be parented to the given one. Returns the model.
-
- - Radius Functions:
-
- * utility:GetHumanoidsInRadius(Position : Vector3 !, Radius : number !, OverlapParam : OverlapParams?, AliveOnly : boolean?) - Returns
- a table with all the humanoids in the position within the radius given. If AliveOnly is true, it'll only get alive humanoids.
-
- * utility:GetModelsInRadius(Position : Vector3 !, Radius : number !, OverlapParam : OverlapParams?) - Returns a table with all the
- models in the position within the radius given.
-
- * utility:GetPartsWithNameInRadius(Position : Vector3 !, Radius : number !, OverlapParam : OverlapParams ?, Name : string !) - Returns
- a table with all the parts within the radius and position given with the same name.
-
-  * utility:GetPartsWithClassInRadius(Position : Vector3 !, Radius : number !, OverlapParam : OverlapParams ?, Class : string !) -
- Returns a table with all the parts within the radius and position given with the same class.
-
- * utility.CanSeeTarget(Position : Vector3 !, Target : BasePart or Model !, RaycastParam : RaycastParams ?, DotProduct : number?, Distance : number?)
-  - Cast a raycast and returns a boolean indicating if the ray hit the basepart or anything inside the model. If a dot product is provided, it will check
- if it's facing the part too, the dot product goes from -1 (looking backwards) till 1 (looking directly at the part). If distance is provided, then
-it will also check if the distance is at least the number provided.
-
- - Event Functions:
-
- (DEPRECATED, USE RBXScriptSignal:Once() instead) * utility:ConnectOnce(Event : RBXScriptSignal !, Function : function !) - Connect the given event to the given function and after
- fired disconnects it immediately.
-
- * utility:ConnectLimited(Limit : number !, Event : RBXScriptSignal !, Function : function !) - Connect the given event to the given
- function. After fired for Limit amount of times, it will disconnect itself.
-
- * utility:ConnectBind(Event: RBXScriptSignal !, callback : function !, Bind : RBXScriptConnection) - Whenever the event in the
-	bind is disconnected, the Event given will also disconnect.	
-
--------- COUNTDOWN --------
-
- A countdown is a ticking value that can be customized and used for timers and other time-related functions. It can be easily
- customized and be used at your will. There are events that fire whenver ticking or reaching 0 which makes it even more 
- useful for timers and such.
-
- * utility:IsACountdown(Table : table): Boolean - Returns true if the given Table is a Countdown Class
-
- * utility.newCountdown(MaxCount : number ?) : Countdown - Returns a countdown class, the following commands can be used on it:
-
- Functions:
-
- - countdown:Start(Count : number ?) - Starts the countdown, if a count is provided, the timer will start on that number
-
- - countdown:SetTimer(timer : number !) - Sets the timer to the provided one.
-
- - countdown:Pause(pauseTime : number ?) - Pauses the countdown, if a pauseTime is provided, it will restart after that
-
- - countdown:Destroy() - Gets rid of the countdown
-
- Properties:
-
- countdown.MaxCount - The maximum the countdown can raise.
-
- countdown.Timer - The current number the timer is at, if changed it will not reset the cooldown.
-
- countdown.TimeToDrain - The timer needed to wait before the countdown loweres
-
- countdown.TimeConsumption - The amount the timer decrease by when being lowered
-
- countdown.UpdateEvent - The event that changes and listenes to the timer. Default is RunService.Heartbeat
-
- Events:
-
- countdown.OnCount(Timer) - Fires whenever the count lowers, returns the timer as a property
-
- countdown.OnFinished() - Fires whenever the count reaches 0 or lower.
-
  -------- QUEUE --------
 
 	A queue is a collection of functions that run in order. You can add functions and have them queued in a line, awaiting to 
@@ -177,54 +38,6 @@ queue.currentFunction - the current function that the queue is playing, if none 
  queue.OnSwitch(func) - Fires whenever the queue switches functions, returns the current function.
 
  queue.OnEmpty() - Fires whenever the queue has no more functions.
-
-  -------- METER --------
-
-  A meter is simply a value within a given min or max value, unlike NumberRanges,
-  they have a value. A meter also has events in which are fired whenever it is full, empty or simply changed. A meter can be set to an
-  UI Instance and it will modify whenever the value inside a meter changes.
-
-  * utility:IsAMeter(Table : table): Boolean - Returns true if the given Table is a Meter Class
-
-  * utility.newMeter(Minimum : number ?, Maximum : number ?) - Returns a Meter class. If not provided with a min it will default to 0.
-  If not provided with a max, it will default to 100. The following can be applied:
-
-  Functions:
-
-  - Meter:GetValue(): number - Returns the value that the meter is currently in.
-
-  - Meter:SetValue(number : number !) - Sets the value of the meter to the given one.
-
-  - Meter:GetPercentage(): number - Returns a percentage of 0 - 100 of the value that the meter is currently in.
-
-  - Meter:SetUI(UI : GuiBase2D !, Axis : string !, TextUI : GuiBase2D ?) - Sets the meter to a UI Instance. The UI provided should be the UI that changes.
-  The axis represents which part of the ui should change when the value inside the meter changes. Can be set to "X" or "Y".
-  If A TextUI is provided, the value of the meter will display there.
-
-  - Meter:RemoveUI() - Stops updating the UI inside the meter
-
-  - Meter:Destroy() - Gets rid of the meter.
-
-  Properties:
-
-  Meter.Minimum - The minimum the value of the meter can go.
-
-  Meter.Maximum - The maximum the value of the meter can go.
-
-  Meter.IntegerOnly - If true, the number it returns when using Meter:GetValue() will always be an integer
-
-  Meter.UI - The UI that the Meter is using. If none then nil
-
-  Meter.UIDisplayPercentage - if true, if a meter UIText has been set, it'll display the value is a percentage. If false, simply show
-  value.
-
-  Events:
-
-  Meter.OnChanged(value : number) - Fires whenever the meter changes its value, returns the value aswell.
-
-  Meter.OnEmpty() - Fires whenever the Meter reaches the minimum value.
-
-  Meter.OnFill() - Fires whenever the Meter reaches the maximum value.
 
  -------- TRACKER --------
 
@@ -287,15 +100,21 @@ local function Debug(Message)
 	end
 end
 
---[=[
-    @class UtilityModule
-
-    Inside the main Module, you'll find the functions:
+--[=[ 
+	@class utility
+	Inside the **Main Module**, you'll find the following:
 ]=]
 local utility = {}
 
--------- INSTANCE FUNCTIONS --------
+-- ---------- INSTANCE FUNCTIONS --------
 
+--[=[ 
+	Clears All Children if the name matches up with the Name parameter.
+
+	@param instance -- The instance that will get affected by this function.
+	@param Name -- The name that the children are required to have to get deleted.
+	@tag Instance Function
+]=]
 function utility:ClearAllChildrenWithName(instance: Instance, Name: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(Name) ~= string, "The name must be a string.")
@@ -307,6 +126,13 @@ function utility:ClearAllChildrenWithName(instance: Instance, Name: string)
 	end
 end
 
+--[=[ 
+	Clears All Children if the class matches up with the ClassName parameter.
+
+	@param instance -- The instance that will get affected by this function.
+	@param ClassName -- The class that the children are required to have to get deleted.
+	@tag Instance Function
+]=]
 function utility:ClearAllChildrenWithClass(instance: Instance, ClassName: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(ClassName) ~= string, "The name must be a string.")
@@ -318,6 +144,13 @@ function utility:ClearAllChildrenWithClass(instance: Instance, ClassName: string
 	end
 end
 
+--[=[ 
+	Clears All Descendants if the name matches up with the Name parameter.
+
+	@param instance -- The instance that will get affected by this function.
+	@param Name -- The name that the descendants are required to have to get deleted.
+	@tag Instance Function
+]=]
 function utility:ClearAllDescendantsWithName(instance: Instance, Name: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(Name) ~= string, "The name must be a string.")
@@ -329,6 +162,13 @@ function utility:ClearAllDescendantsWithName(instance: Instance, Name: string)
 	end
 end
 
+--[=[ 
+	Clears All Descendants if the class matches up with the Class parameter.
+
+	@param instance -- The instance that will get affected by this function.
+	@param Class -- The class that the descendants are required to have to get deleted.
+	@tag Instance Function
+]=]
 function utility:ClearAllDescendantsWithClass(instance: Instance, Class: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(Class) ~= string, "The name must be a string.")
@@ -340,7 +180,14 @@ function utility:ClearAllDescendantsWithClass(instance: Instance, Class: string)
 	end
 end
 
-function utility:GetChildrenWithName(instance: Instance, Name: string)
+--[=[ 
+	Returns all children with the same name as the given one.
+
+	@param instance -- The instance that will get affected by this function.
+	@param Name -- The name that the children are required to have.
+	@tag Instance Function
+]=]
+function utility:GetChildrenWithName(instance: Instance, Name: string): { Instance }
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(Name) ~= string, "The name must be a string.")
 	local returningTable = {}
@@ -354,7 +201,14 @@ function utility:GetChildrenWithName(instance: Instance, Name: string)
 	return returningTable
 end
 
-function utility:GetChildrenWithClass(instance: Instance, ClassName: string)
+--[=[ 
+	Returns all children with the same class as the given one.
+
+	@param instance -- The instance that will get affected by this function.
+	@param ClassName -- The class that the children are required to have.
+	@tag Instance Function
+]=]
+function utility:GetChildrenWithClass(instance: Instance, ClassName: string): { Instance }
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(ClassName) ~= string, "The name must be a string.")
 	local returningTable = {}
@@ -368,7 +222,14 @@ function utility:GetChildrenWithClass(instance: Instance, ClassName: string)
 	return returningTable
 end
 
-function utility:GetDescendantsWithName(instance: Instance, Name: string)
+--[=[ 
+	Returns all descendats with the same name as the given one.
+
+	@param instance -- The instance that will get affected by this function.
+	@param Name -- The name that the children are required to have.
+	@tag Instance Function
+]=]
+function utility:GetDescendantsWithName(instance: Instance, Name: string): { Instance }
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(Name) ~= string, "The name must be a string.")
 	local returningTable = {}
@@ -382,7 +243,14 @@ function utility:GetDescendantsWithName(instance: Instance, Name: string)
 	return returningTable
 end
 
-function utility:GetDescendantsWithClass(instance: Instance, ClassName: string)
+--[=[ 
+	Returns all descendats with the same class as the given one.
+
+	@param instance -- The instance that will get affected by this function.
+	@param ClassName -- The class that the children are required to have.
+	@tag Instance Function
+]=]
+function utility:GetDescendantsWithClass(instance: Instance, ClassName: string): { Instance }
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(ClassName) ~= string, "The name must be a string.")
 	local returningTable = {}
@@ -396,7 +264,15 @@ function utility:GetDescendantsWithClass(instance: Instance, ClassName: string)
 	return returningTable
 end
 
-function utility:HasChildWithName(instance: Instance, Name: string)
+--[=[ 
+	Returns a boolean indicating if there is any existing child with the given name.
+
+	@param instance -- The instance that will get affected by this function.
+	@param Name -- The name that the children is required to have.
+	@tag Instance Function
+	@deprecated v1 -- You might want to use Instance:FindFirstChild() instead.
+]=]
+function utility:HasChildWithName(instance: Instance, Name: string): boolean
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(Name) ~= string, "The name must be a string.")
 	Warn("This Feature is Deprecated: HasChildWithName")
@@ -412,6 +288,14 @@ function utility:HasChildWithName(instance: Instance, Name: string)
 	return returningBool
 end
 
+--[=[ 
+	Returns a boolean indicating if there is any existing child with the given class.
+
+	@param instance -- The instance that will get affected by this function.
+	@param ClassName -- The class that the children is required to have.
+	@tag Instance Function
+	@deprecated v1 -- You might want to use Instance:FindFirstChildOfClass() instead.
+]=]
 function utility:HasChildWithClass(instance: Instance, ClassName: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(ClassName) ~= string, "The name must be a string.")
@@ -428,6 +312,14 @@ function utility:HasChildWithClass(instance: Instance, ClassName: string)
 	return returningBool
 end
 
+--[=[ 
+	Returns a boolean indicating if there is any existing descendant with the given name.
+
+	@param instance -- The instance that will get affected by this function.
+	@param Name -- The name that the children is required to have.
+	@tag Instance Function
+	@deprecated v1 -- You might want to use Instance:FindFirstChild() instead.
+]=]
 function utility:HasDescendantWithName(instance: Instance, Name: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(Name) ~= string, "The name must be a string.")
@@ -444,6 +336,14 @@ function utility:HasDescendantWithName(instance: Instance, Name: string)
 	return returningBool
 end
 
+--[=[ 
+	Returns a boolean indicating if there is any existing descendant with the given class.
+
+	@param instance -- The instance that will get affected by this function.
+	@param ClassName -- The class that the children is required to have.
+	@tag Instance Function
+	@deprecated v1 -- You might want to use Instance:FindFirstChildOfClass() instead.
+]=]
 function utility:HasDescendantWithClass(instance: Instance, ClassName: string)
 	assert(instance, "In order to get children with name, please add an instance")
 	assert(typeof(ClassName) ~= string, "The name must be a string.")
@@ -460,7 +360,15 @@ function utility:HasDescendantWithClass(instance: Instance, ClassName: string)
 	return returningBool
 end
 
-function utility:UngroupModel(Model: Model, Parent)
+--[=[ 
+	Ungroups the model (or folder or any instance for that matter) and if provided with a parent, all children of the model will go there,
+	else the parent of the model
+
+	@param Model -- The model that should be ungrouped.
+	@param Parent -- The parent that the children inside the model will be on. If none then the parent of the model.
+	@tag Instance Function
+]=]
+function utility:UngroupModel(Model: Model | Folder | Instance, Parent: Instance)
 	assert(Model, "Please provide a model.")
 
 	local Instances = Model:GetChildren()
@@ -476,8 +384,17 @@ function utility:UngroupModel(Model: Model, Parent)
 	Model:Destroy()
 end
 
--------- TABLE FUNCTIONS --------
+-- ------ TABLE FUNCTIONS --------
 
+--[=[ 
+	For every value in the table, the callback will fire with the
+	value as the parameter. The callback MUST return a boolean. If the boolean is true on that value then it'll add to the
+	returning table, else ignore.
+
+	@param t -- The table that should be filtered.
+	@param callBack -- The callback function that determines wheter to filter the certain value or not. MUST return a boolean.
+	@tag Table Function
+]=]
 function utility:FilterTable<T>(t: { T }, callBack: (value: T) -> boolean): { any }
 	assert(type(t) == "table", "Please provide a table.")
 	assert(typeof(callBack) == "function", "Please provid a callback function.")
@@ -492,6 +409,12 @@ function utility:FilterTable<T>(t: { T }, callBack: (value: T) -> boolean): { an
 	return returningTable
 end
 
+--[=[ 
+	Clears every instance, connection, thread, key and table in the given table. The table itself will not be cleared.
+
+	@param SentTable -- The table that should be cleared.
+	@tag Table Function
+]=]
 function utility:DeepClearTable(SentTable: { any })
 	assert(SentTable, "Please provide a table.")
 
@@ -513,7 +436,13 @@ function utility:DeepClearTable(SentTable: { any })
 	end
 end
 
-function utility:GetWeightOfTable(SentTable: table)
+--[=[ 
+	Returns the total sum of the numbers in the given table. (if there aren't any numbers, it'll return 0).
+
+	@param SentTable -- The table that should be counted.
+	@tag Table Function
+]=]
+function utility:GetWeightOfTable(SentTable: table): number
 	assert(SentTable, "Please provide a table.")
 	local returningNumber = 0
 
@@ -526,7 +455,14 @@ function utility:GetWeightOfTable(SentTable: table)
 	return returningNumber
 end
 
-function utility:GetValuesWithName(SentTable: table, Name: string)
+--[=[ 
+	Returns a table (keys included) with only the values that match the Name inside the sent table.
+
+	@param SentTable -- The table that should be filtered.
+	@param Name -- The name of the values that should be searched.
+	@tag Table Function
+]=]
+function utility:GetValuesWithName<T>(SentTable: { T }, Name: string): { [any?]: string }
 	assert(SentTable, "Please provide a table.")
 	assert(type(Name) ~= string, "Please provide a valid name.")
 	local returningTable = {}
@@ -544,7 +480,15 @@ function utility:GetValuesWithName(SentTable: table, Name: string)
 	return returningTable
 end
 
-function utility:GetAllKeysWithName(SentTable: table, Name: string)
+--[=[ 
+	Returns a table with only the the keys that match the name (values will not be checked) inside the sent table.
+
+	@param SentTable -- The table that should be filtered.
+	@param Name -- The name of the keys that should be searched.
+	@tag Table Function
+	@deprecated v1 -- This thing is straight up pointless.
+]=]
+function utility:GetAllKeysWithName(SentTable: table, Name: string): { [string]: any }
 	assert(SentTable, "Please provide a table.")
 	assert(typeof(Name) ~= string, "Please provide a valid name.")
 	Warn("This feature is deprecated: GetAllKeysWithName (I genuinely don't know why this function exists)")
@@ -561,6 +505,13 @@ function utility:GetAllKeysWithName(SentTable: table, Name: string)
 	return returningTable
 end
 
+--[=[ 
+	Clears all values inside the sent table that match the given Name. Keys will not be deleted.
+
+	@param SentTable -- The table that should be filtered.
+	@param Name -- The name of the values that should be searched.
+	@tag Table Function
+]=]
 function utility:ClearAllValuesWithName(SentTable: table, Name: string)
 	assert(SentTable, "Please provide a table.")
 	assert(typeof(Name) ~= string, "Please provide a valid name.")
@@ -580,7 +531,14 @@ function utility:ClearAllValuesWithName(SentTable: table, Name: string)
 	return SentTable
 end
 
-function utility:HasValueWithName(SentTable: table, Name: string)
+--[=[ 
+	Returns a boolean indicating if a value with the give name exists on the table.
+
+	@param SentTable -- The table that should be searched.
+	@param Name -- The name of the values that should be searched.
+	@tag Table Function
+]=]
+function utility:HasValueWithName(SentTable: table, Name: string): boolean
 	assert(SentTable, "Please provide a table.")
 	assert(typeof(Name) ~= string, "Please provide a valid name.")
 	local returningBool = false
@@ -602,7 +560,15 @@ function utility:HasValueWithName(SentTable: table, Name: string)
 	return returningBool
 end
 
-function utility:GroupTable(SentTable: table, InstanceParent: Instance)
+--[=[ 
+	Creates a model with and parents all the instances in the table to it, the model will be parented to the given one.
+	Returns the model.
+
+	@param SentTable -- The table that should be made into a model.
+	@param InstanceParent -- The parent that the model will go on.
+	@tag Table Function
+]=]
+function utility:GroupTable(SentTable: table, InstanceParent: Instance): Model
 	assert(SentTable, "Please provide a table with instances.")
 	assert(InstanceParent, "Please provide a parent for the model")
 
@@ -620,14 +586,24 @@ function utility:GroupTable(SentTable: table, InstanceParent: Instance)
 	return Model
 end
 
--------- RADIUS --------
+-- ------ RADIUS --------
 
+--[=[ 
+	Returns a table with all the humanoids in the position within the radius given.
+	If AliveOnly is true, it'll only get alive humanoids.
+
+	@param Position -- The position that the radius will search on
+	@param Radius -- The radius that it will detect humanoids on.
+	@param OverlapParam -- Optional params.
+	@param AliveOnly -- If true, it will only get humanoids who are alive.
+	@tag Radius Function
+]=]
 function utility:GetHumanoidsInRadius(
 	Position: Vector3,
 	Radius: number,
 	OverlapParam: OverlapParams?,
 	AliveOnly: boolean?
-)
+): { Humanoid }
 	assert(typeof(Position) ~= Vector3, "Position must be a Vector3.")
 	assert(typeof(Radius) == "number", "Radius must be a number.")
 
@@ -653,7 +629,15 @@ function utility:GetHumanoidsInRadius(
 	return Humanoids
 end
 
-function utility:GetModelsInRadius(Position: Vector3, Radius: number, OverlapParam: OverlapParams?)
+--[=[ 
+	Returns a table with all the models in the position within the radius given.
+
+	@param Position -- The position that the radius will search on
+	@param Radius -- The radius that it will detect models on.
+	@param OverlapParam -- Optional params.
+	@tag Radius Function
+]=]
+function utility:GetModelsInRadius(Position: Vector3, Radius: number, OverlapParam: OverlapParams?): {Model}
 	assert(typeof(Position) ~= Vector3, "Position must be a Vector3.")
 	assert(typeof(Radius) == "number", "Radius must be a number.")
 
@@ -674,12 +658,21 @@ function utility:GetModelsInRadius(Position: Vector3, Radius: number, OverlapPar
 	return Models
 end
 
+--[=[ 
+	Returns a table with all the parts in the position within the radius given that have the same name as the one provided.
+
+	@param Position -- The position that the radius will search on
+	@param Radius -- The radius that it will detect models on.
+	@param OverlapParam -- Optional params.
+	@param Name -- The name that the parts should have.
+	@tag Radius Function
+]=]
 function utility:GetPartsWithNameInRadius(
 	Position: Vector3,
 	Radius: number,
 	OverlapParam: OverlapParams?,
 	Name: string
-): { Instance }
+): { BasePart }
 	assert(typeof(Position) ~= Vector3, "Position must be a Vector3.")
 	assert(typeof(Radius) == "number", "Radius must be a number.")
 	assert(type(Name) ~= "string", "Please provide a Name.")
@@ -699,12 +692,21 @@ function utility:GetPartsWithNameInRadius(
 	return Parts
 end
 
+--[=[ 
+	Returns a table with all the parts in the position within the radius given that have the same class as the one provided.
+
+	@param Position -- The position that the radius will search on
+	@param Radius -- The radius that it will detect models on.
+	@param OverlapParam -- Optional params.
+	@param Class -- The class that the parts should have.
+	@tag Radius Function
+]=]
 function utility:GetPartsWithClassInRadius(
 	Position: Vector3,
 	Radius: number,
 	OverlapParam: OverlapParams?,
 	Class: string
-): { Instance }
+): { BasePart }
 	assert(typeof(Position) ~= Vector3, "Position must be a Vector3.")
 	assert(typeof(Radius) == "number", "Radius must be a number.")
 	assert(type(Class) ~= "string", "Please provide a Name.")
@@ -724,6 +726,18 @@ function utility:GetPartsWithClassInRadius(
 	return Parts
 end
 
+--[=[ 
+	Cast a raycast and returns a boolean indicating if the ray hit the basepart or anything inside the model. If a dot product is provided,
+	it will check if it's facing the part too, the dot product goes from -1 (looking backwards) till 1 (looking directly at the part).
+	If distance is provided, then it will also check if the distance is at least the number provided.
+
+	@param Position -- The position that the raycast will start on.
+	@param Target -- The part or model that should be checked.
+	@param RayCastParams -- Optional params.
+	@param DotProduct -- The minimum dot product it should have.
+	@param Distance -- The maximum distance it should have.
+	@tag Radius Function
+]=]
 function utility.CanSeeTarget(
 	Position: Vector3 | CFrame,
 	Target: BasePart | Model,
@@ -765,9 +779,17 @@ function utility.CanSeeTarget(
 	return false
 end
 
--------- EVENTS --------
+-- ------ EVENTS --------
 
-function utility:ConnectOnce(Event: RBXScriptSignal, Function: "function")
+--[=[ 
+	Connect the given event to the given function and after fired disconnects it immediately.
+
+	@param Event -- The event that should be connected.
+	@param Function -- The callback function.
+	@tag Event Function
+	@deprecated v1 -- Please use RBXScriptSignal:Once() instead.
+]=]
+function utility:ConnectOnce(Event: RBXScriptSignal, Function: "function"): RBXScriptConnection
 	assert(typeof(Event) == "RBXScriptSignal", "Event has to be an event.")
 	assert(typeof(Function) == "function", "Please provide a function.")
 	Warn("utility:ConnectOnce() is deprecated. Please use RBXScriptSignal:Once() instead")
@@ -785,7 +807,15 @@ function utility:ConnectOnce(Event: RBXScriptSignal, Function: "function")
 	return Connection
 end
 
-function utility:ConnectLimited(Limit: number, Event: RBXScriptSignal, Function: "function")
+--[=[ 
+	Connect the given event to the given function and after fired for the amount provided, disconnects it immediately.
+
+	@param Limit -- The max amount of times that this even can be fired.
+	@param Event -- The event that should be connected.
+	@param Function -- The callback function.
+	@tag Event Function
+]=]
+function utility:ConnectLimited(Limit: number, Event: RBXScriptSignal, Function: "function"): RBXScriptConnection
 	assert(typeof(Event) == "RBXScriptSignal", "Event has to be an event.")
 	assert(typeof(Function) == "function", "Please provide a function.")
 	assert(type(Limit) ~= "number", "A limit is required.")
@@ -808,7 +838,15 @@ function utility:ConnectLimited(Limit: number, Event: RBXScriptSignal, Function:
 	return Connection
 end
 
-function utility:ConnectBind(Event: RBXScriptSignal, callback: (...any) -> (), Bind: RBXScriptConnection)
+--[=[ 
+	Connect the given event to the given function. If the binded Bind is disconnected, so will this.
+
+	@param Event -- The event that should be connected.
+	@param callback -- The callback function.
+	@param Bind -- The connection that it should be binded to.
+	@tag Event Function
+]=]
+function utility:ConnectBind(Event: RBXScriptSignal, callback: (...any) -> (), Bind: RBXScriptConnection): RBXScriptConnection
 	assert(typeof(Event) == "RBXScriptSignal", "Event has to be an event.")
 	assert(typeof(callback) == "function", "Please provide a function.")
 	assert(typeof(Bind) == "RBXScriptConnection", "Bind has to be a connection.")
@@ -831,54 +869,90 @@ end
 
 -- stylua: ignore
 
--------- COUNTDOWN --------
+-- ------ COUNTDOWN --------
 
+--[=[ 
+	Returns a boolean indicating if the given table is a Countdown.
+
+	@param t -- The table that should be checked.
+]=]
 function utility:IsACountdown(t: table): boolean
 	assert(typeof(t) == table, "Please provide a table.")
 
 	return getmetatable(t) == Countdown and t.ClassName == "Countdown"
 end
 
----@diagnostic disable-next-line: undefined-type
-function utility.newCountdown(MaxCount: number): Countdown
+--[=[ 
+	Returns Countdown class.
+
+	@param MaxCount -- The max count that the countdown should have.
+]=]
+function utility.newCountdown(MaxCount: number?): Countdown
 	return Countdown.new(MaxCount)
 end
 
--------- QUEUE --------
+-- ------ QUEUE --------
 
+--[=[ 
+	Returns a boolean indicating if the given table is a Queue.
+
+	@param t -- The table that should be checked.
+]=]
 function utility:IsAQueue(t: table): boolean
 	assert(typeof(t) == table, "Please provide a table.")
 
 	return getmetatable(t) == Queue and t.ClassName == "Queue"
 end
 
----@diagnostic disable-next-line: undefined-type
+--[=[ 
+	Returns Queue class.
+]=]
 function utility.newQueue(): Queue
 	return Queue.new()
 end
 
--------- METER --------
+-- ------ METER --------
 
+--[=[ 
+	Returns a boolean indicating if the given table is a Meter.
+
+	@param t -- The table that should be checked.
+]=]
 function utility:IsAMeter(t: table): boolean
 	assert(typeof(t) == table, "Please provide a table.")
 
 	return getmetatable(t) == Meter and t.ClassName == "Meter"
 end
 
----@diagnostic disable-next-line: undefined-type
+--[=[ 
+	Returns Meter class.
+
+	@param Minimum -- The minimum a meter value will go.
+	@param Maximum -- The maximum a meter value will go.
+]=]
 function utility.newMeter(Minimum: number?, Maximum: number?): Meter
 	return Meter.new(Minimum, Maximum)
 end
 
--------- TRACKER --------
+-- ------ TRACKER --------
 
+--[=[ 
+	Returns a boolean indicating if the given table is a Tracker.
+
+	@param t -- The table that should be checked.
+]=]
 function utility:IsATracker(t: table): boolean
 	assert(typeof(t) == table, "Please provide a table.")
 
 	return getmetatable(t) == Tracker and t.ClassName == "Tracker"
 end
 
----@diagnostic disable-next-line: undefined-type
+--[=[ 
+	Returns Tracker class.
+
+	@param Origin -- The oring vector or part that tracks.
+	@param Target -- The tracking vector or object.
+]=]
 function utility.newTracker(Origin: BasePart | Vector3, Target: BasePart | Vector3): Tracker
 	return Tracker.new(Origin, Target)
 end
