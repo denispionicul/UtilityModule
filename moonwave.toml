@@ -1,5 +1,10 @@
 gitSourceBranch = "main"
 
+[docusaurus]
+onBrokenLinks = "throw"
+onBrokenMarkdownLinks = "warn"
+favicon = ""
+
 classOrder = [
     "utility",
     "Countdown",
