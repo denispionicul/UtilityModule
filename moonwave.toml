@@ -1,0 +1,14 @@
+classOrder = [
+    "utility",
+    "Countdown",
+    "Queue",
+    "Meter",
+    "Tracker"
+]
+
+apiCategories = [
+    "Instance Function",
+    "Table Function",
+    "Radius Function",
+    "Event Function"
+]
