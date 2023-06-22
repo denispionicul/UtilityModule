@@ -4,79 +4,6 @@ Before anything, I just want to say that this is pretty new and if any bugs occu
 Thank you for using this.
 You are allowed to make changes.
 
- -------- QUEUE --------
-
-	A queue is a collection of functions that run in order. You can add functions and have them queued in a line, awaiting to 
-	be called. A queue can be paused or stopped.
-
- * utility:IsAQueue(Table : table): Boolean - Returns true if the given Table is a Queue Class
-
- * utility.newQueue() - Returns a queue class, the following commands can be used on it:
-
- Functions:
-
- - queue:Start() - Starts the queue, it will begin going over every queued function.
-
- - queue:Pause() - Stops the queue from running the next functions
-
- - queue:Stop() - Stops the queue from running the next functions and clears all the functions in the queue.
-
- - queue:Add(function : function !) - Adds a function to the queue.
-
- - queue:GetQueues() - returns the queues that there are currently
-
- - queue:Remove(number : number !) - Removes the function in the number's position, simply table.remove.
-
- - queue:Destroy() - Gets rid of the queue
-
- Properties:
-
-queue.currentFunction - the current function that the queue is playing, if none then nil
-
- Events:
-
- queue.OnSwitch(func) - Fires whenever the queue switches functions, returns the current function.
-
- queue.OnEmpty() - Fires whenever the queue has no more functions.
-
- -------- TRACKER --------
-
-  A tracker is a class that always display (or tracks) given parts or vectors. It has a prebuilt magnitude, unit and min-max range.
-  Unlike the other classes above, you might want to change some of its properties before starting.
-
-  * utility:IsATracker(Table : table): Boolean - Returns true if the given Table is a Tracker Class
-
-  * utility.newTracker(Origin : BasePart | Vector3 !, Target : BasePart | Vector3 !) - Returns a Tracker class.
-  The following can be applied:
-
- Functions:
-
-  - Tracker:Start() - Begins the tracker. When active, the magnitude and unti will update. Should NOT be run twice.
-
-  - Tracker:Stop() - Stops the tracker. Nothing will update and the tracker will stop tracking until started again. Should NOT be run
-  twice.
-
-  Properties:
-
-  Tracker.Origin - The Origin given when creating the tracker. Can be set to a BasePart or Vector3
-
-  Tracker.Target - The Target given when creating the tracker. Can be set to a BasePart or Vector3
-
-  Tracker.Distance - The distance is a numbervalue that tell the tracker the max and min magnitude that the tracker will function at
-  this also controls the events that will be discussed below.
-
-  Tracker.Magnitude - The magnitude between the Origin and Target
-
-  Tracker.Unit - The Unit between the Origin and Target
-
-  Events:
-
-  Tracker.OnEnter - This event fires when the magnitude entered in between the distance property. This will never fire if the Distance
-  is not changed.
-
-  Tracker.OnLeave - This even fires after the magnitude leaves the distance property. This will not fire if the Distance is not
-  changed.
-
 ]]
 local RunService = game:GetService("RunService")
 
@@ -637,7 +564,7 @@ end
 	@param OverlapParam -- Optional params.
 	@tag Radius Function
 ]=]
-function utility:GetModelsInRadius(Position: Vector3, Radius: number, OverlapParam: OverlapParams?): {Model}
+function utility:GetModelsInRadius(Position: Vector3, Radius: number, OverlapParam: OverlapParams?): { Model }
 	assert(typeof(Position) ~= Vector3, "Position must be a Vector3.")
 	assert(typeof(Radius) == "number", "Radius must be a number.")
 
@@ -846,7 +773,11 @@ end
 	@param Bind -- The connection that it should be binded to.
 	@tag Event Function
 ]=]
-function utility:ConnectBind(Event: RBXScriptSignal, callback: (...any) -> (), Bind: RBXScriptConnection): RBXScriptConnection
+function utility:ConnectBind(
+	Event: RBXScriptSignal,
+	callback: (...any) -> (),
+	Bind: RBXScriptConnection
+): RBXScriptConnection
 	assert(typeof(Event) == "RBXScriptSignal", "Event has to be an event.")
 	assert(typeof(callback) == "function", "Please provide a function.")
 	assert(typeof(Bind) == "RBXScriptConnection", "Bind has to be a connection.")
