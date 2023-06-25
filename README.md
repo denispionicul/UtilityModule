@@ -3,7 +3,7 @@
 UtilityModule is a **collection of functions and classes** that specializes in
 making common functions and events easier to manage and use.
 
-### There are 3 main ways to install UtiltyModule
+### There are 3 main ways to install UtilityModule
 
 * You can get the module from The [Roblox Marketplace](https://create.roblox.com/marketplace/asset/13250503269/UtilityModule)
 
