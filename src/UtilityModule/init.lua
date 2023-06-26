@@ -1,9 +1,11 @@
 --[[
+V1.1.0
 
 Before anything, I just want to say that this is pretty new and if any bugs occur, don't hesitate to report them.
 Thank you for using this.
 You are allowed to make changes.
 
+Anything inside the "Util" folder is not made by me.
 ]]
 local RunService = game:GetService("RunService")
 
@@ -32,6 +34,38 @@ end
 	Inside the **Main Module**, you'll find the following:
 ]=]
 local utility = {}
+
+-- ---------- MISC FUNCTIONS ------------
+
+--[=[ 
+	Warns if the provided value is false or nil.
+
+	@param value -- The value to be checked
+	@param warnMessage -- Optional warning that will be displayed if value is false or nil
+	@tag Misc Function
+]=]
+function utility.assertwarn(value : any, warnMessage : string?)
+	local WarnMessage = warnMessage or "Warn Assertion failed: value is false."
+
+	if not value then
+		warn(WarnMessage)
+	end	
+end	
+
+--[=[ 
+	Prints a message if the provided value is false or nil.
+
+	@param value -- The value to be checked
+	@param printMessage -- Optional print message that will be displayed if value is false or nil
+	@tag Misc Function
+]=]
+function utility.assertprint(value : any, printMessage : string?)
+	local PrintMessage = printMessage or "Value is false."
+
+	if not value then
+		print(PrintMessage)
+	end	
+end
 
 -- ---------- INSTANCE FUNCTIONS --------
 
@@ -309,6 +343,40 @@ function utility:UngroupModel(Model: Model | Folder | Instance, Parent: Instance
 	end
 
 	Model:Destroy()
+end
+
+--[=[ 
+	Returns the amount of Attributes that an instance has
+
+	@param instance -- The instance that should be checked for attributes.
+	@tag Instance Function
+]=]
+function utility:GetAmountOfAttributes(instance : Instance): number
+	local ReturningNumber = 0
+
+	for _, _ in pairs(instance:GetAttributes()) do
+		ReturningNumber += 1
+	end
+
+	return ReturningNumber
+end
+
+--[=[ 
+	Creates a simple blank part with no collision, transparency. Size of 1,1,1 and Anchored set to true. An attachment will also be inside.
+
+	@tag Instance Function
+]=]
+function utility.CreateBlankPart(): Part
+	local Part = Instance.new("Part")
+	local Attachment = Instance.new("Attachment")
+
+	Part.CanCollide = false
+	Part.Transparency = true
+	Part.Anchored = true
+	Part.Size = Vector3.new(1, 1, 1)
+	Attachment.Parent = Part
+
+	return Part
 end
 
 -- ------ TABLE FUNCTIONS --------

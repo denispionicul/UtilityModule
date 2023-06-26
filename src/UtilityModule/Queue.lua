@@ -2,6 +2,8 @@
 -- DO NOT change the line above.
 
 local RunService = game:GetService("RunService")
+local Signal = require(script.Parent.Parent:FindFirstChild("Signal") or script.Parent.Util.Signal)
+--local Trove = require(script.Parent.Parent:FindFirstChild("Trove") or script.Parent.Util.Trove)
 
 --[=[ 
 	@class Queue
@@ -59,12 +61,12 @@ function Queue.Start(self: Queue)
 	self._Connections.Main = RunService.Heartbeat:Connect(function()
 		if self.CurrentFunction == nil and #self._Queue > 0 then
 			self.CurrentFunction = self._Queue[1]
-			self._OnSwitch:Fire(self._Queue[1])
+			self.OnSwitch:Fire(self._Queue[1])
 			self.CurrentFunction()
 			table.remove(self._Queue, 1)
 			self.CurrentFunction = nil
 			if #self._Queue <= 0 then
-				self._OnEmpty:Fire()
+				self.OnEmpty:Fire()
 			end
 		end
 	end)
@@ -138,15 +140,12 @@ end]]
 
 function Queue.new(): Queue
 	local self = setmetatable({}, Queue)
-	local OnSwitch, OnEmpty = Instance.new("BindableEvent"), Instance.new("BindableEvent")
 
 	self._Queue = {}
-	self._OnSwitch = OnSwitch
-	self._OnEmpty = OnEmpty
 	self._Connections = {}
 
-	self.OnEmpty = OnEmpty.Event
-	self.OnSwitch = OnSwitch.Event
+	self.OnEmpty = Signal.new()
+	self.OnSwitch = Signal.new()
 	self.CurrentFunction = nil
 
 	--self:_Init()

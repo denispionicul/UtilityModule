@@ -7,6 +7,12 @@
            "$className": "ReplicatedStorage",
            "UtilityModule": {
                 "$path": "src"
+           },
+           "Packages": {
+               "$path": "Packages"
+           },
+           "Examples": {
+               "$path": "Examples"
            }
       }
   }

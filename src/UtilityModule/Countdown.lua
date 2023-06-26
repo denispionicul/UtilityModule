@@ -2,6 +2,8 @@
 -- DO NOT change the line above.
 
 local RunService = game:GetService("RunService")
+local Signal = require(script.Parent.Parent:FindFirstChild("Signal") or script.Parent.Util.Signal)
+--local Trove = require(script.Parent.Parent:FindFirstChild("Trove") or script.Parent.Util.Trove)
 
 --[=[ 
 	@class Countdown
@@ -104,9 +106,9 @@ function Countdown.Start(self: Countdown, Count: number)
 			end
 			self._Tick = os.clock()
 			self.Timer -= ConsumeAmount
-			self._OnCount:Fire(self.Timer)
+			self.OnCount:Fire(self.Timer)
 			if self.Timer <= 0 then
-				self._OnFinished:Fire()
+				self.OnFinished:Fire()
 			end
 		end
 	end)
@@ -169,7 +171,6 @@ end]]
 function Countdown.new(MaxCount: number): Countdown
 	local self = setmetatable({}, Countdown)
 
-	self._OnCount, self._OnFinished = Instance.new("BindableEvent"), Instance.new("BindableEvent")
 	self._Tick = os.clock()
 	self._Connections = {}
 
@@ -179,8 +180,8 @@ function Countdown.new(MaxCount: number): Countdown
 	self.TimerConsumption = 1
 	self.UpdateEvent = RunService.Stepped
 
-	self.OnCount = self._OnCount.Event
-	self.OnFinished = self._OnFinished.Event
+	self.OnCount = Signal.new()
+	self.OnFinished = Signal.new()
 
 	--	self:_Init()
 

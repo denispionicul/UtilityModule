@@ -86,10 +86,6 @@ type self = {
 ]=]
 export type Tracker = typeof(setmetatable({} :: self, Tracker))
 
-function Tracker.Destroy(self: Tracker)
-	require(script.Parent):DeepClearTable(self)
-end
-
 --[=[ 
 	Starts the tracking and begins updating the properties.
 ]=]
@@ -126,6 +122,14 @@ function Tracker.Stop(self: Tracker)
 
 	self._Connections.Main:Disconnect()
 	self._Connections.Main = nil
+end
+
+--[=[ 
+	Gets rid of the Tracker.
+]=]
+function Tracker.Destroy(self: Tracker)
+	require(script.Parent):DeepClearTable(self)
+	self = nil
 end
 
 --function Tracker._Init(self: Tracker): () end

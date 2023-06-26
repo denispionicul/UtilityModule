@@ -1,11 +1,18 @@
 [package]
-name = "denispionicul/UtilityModule"
+name = "denispionicul/utilitymodule"
 description = "UtilityModule is a collections of useful functions and classes."
-version = "1.0"
+version = "1.0.0"
 license = "MIT"
-registry = "https://github.com/UpliftGames/wally-index"
+authors = ["denispionicul"]
 realm = "shared"
+registry = "https://github.com/UpliftGames/wally-index"
+exclude = []
+private = false
 
 [dependencies]
 Signal = "sleitnick/signal@1.5.0"
 Trove = "sleitnick/trove@0.5.0"  
+
+[server-dependencies]
+
+[dev-dependencies]

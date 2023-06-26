@@ -1,6 +1,9 @@
 --!nocheck
 -- DO NOT change the line above
 
+local Signal = require(script.Parent.Parent:FindFirstChild("Signal") or script.Parent.Util.Signal)
+--local Trove = require(script.Parent.Parent:FindFirstChild("Trove") or script.Parent.Util.Trove)
+
 --[=[ 
 	@class Meter
 	A meter is simply a value within a given min or max value, unlike NumberRanges,
@@ -157,7 +160,7 @@ function Meter._Init(self: Meter): ()
 	self._Value.Value = self.Maximum
 
 	self._Connections.ChangedEvent = self._Value.Changed:Connect(function()
-		self._ChangedSignal:Fire(self._Value.Value)
+		self.OnChanged:Fire(self._Value.Value)
 		
 		if self.UI then
 			local UI : GuiBase2d = self.UI
@@ -169,9 +172,9 @@ function Meter._Init(self: Meter): ()
 		end
 		
 		if self._Value.Value <= self.Minimum then
-			self._EmptySignal:Fire()
+			self.OnEmpty:Fire()
 		elseif self._Value.Value >= self.Maximum then
-			self._FullSignal:Fire()
+			self.OnFill:Fire()
 		end
 	end)
 
@@ -181,9 +184,6 @@ function Meter.new(Minimum : number?, Maximum : number?): Meter
 	local self = setmetatable({} :: self, Meter)
 
 	self._Value = Instance.new("NumberValue")
-	self._ChangedSignal = Instance.new("BindableEvent")
-	self._EmptySignal = Instance.new("BindableEvent")
-	self._FullSignal = Instance.new("BindableEvent")
 	self._UIAxis = "X"
 	self._UIText = nil
 	self._Connections = {}
@@ -194,9 +194,9 @@ function Meter.new(Minimum : number?, Maximum : number?): Meter
 	self.UI = nil
 	self.UIDisplayPercentage = true
 	
-	self.OnChanged = self._ChangedSignal.Event
-	self.OnEmpty = self._EmptySignal.Event
-	self.OnFill = self._FullSignal.Event
+	self.OnChanged = Signal.new()
+	self.OnEmpty = Signal.new()
+	self.OnFill = Signal.new()
 
 	self:_Init()
 

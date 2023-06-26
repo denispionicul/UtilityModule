@@ -12,7 +12,8 @@ apiCategories = [
     "Instance Function",
     "Table Function",
     "Radius Function",
-    "Event Function"
+    "Event Function",
+    "Misc Function"
 ]
 
 [home]
