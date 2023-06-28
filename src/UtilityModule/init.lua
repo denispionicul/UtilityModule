@@ -350,6 +350,7 @@ end
 
 	@param instance -- The instance that should be checked for attributes.
 	@tag Instance Function
+	@deprecated v1.1.1 -- You might want to use the more general version, utility:GetAmountOfDictionary(instance:GetAttributes())
 ]=]
 function utility:GetAmountOfAttributes(instance : Instance): number
 	local ReturningNumber = 0
@@ -371,7 +372,7 @@ function utility.CreateBlankPart(): Part
 	local Attachment = Instance.new("Attachment")
 
 	Part.CanCollide = false
-	Part.Transparency = true
+	Part.Transparency = 1
 	Part.Anchored = true
 	Part.Size = Vector3.new(1, 1, 1)
 	Attachment.Parent = Part
@@ -380,6 +381,22 @@ function utility.CreateBlankPart(): Part
 end
 
 -- ------ TABLE FUNCTIONS --------
+
+--[=[ 
+	Returns the amount of Keys that a dictionary has
+
+	@param t -- The table that should be checked for keys.
+	@tag Table Function
+]=]
+function utility:GetAmountOfDictionary(t : {[any]: any}): number
+	local ReturningNumber = 0
+
+	for _, _ in pairs(t) do
+		ReturningNumber += 1
+	end
+
+	return ReturningNumber
+end
 
 --[=[ 
 	For every value in the table, the callback will fire with the
